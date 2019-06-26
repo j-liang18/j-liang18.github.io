@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HAR files</title>
+    <script src="js/perf-cascade.min.js"></script>
+    <link rel="stylesheet" href="js/perf-cascade.css">
+</head>
+<body>
+    <div id="body"></div>
+    <script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "./" + location.search.substring(1), true);
+    xhr.addEventListener("readystatechange", function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        var perfCascadeSvg = perfCascade.fromHar(response);
+        document.getElementById("body").appendChild(perfCascadeSvg);
+      }
+    })
+    xhr.send();
+    </script>
+</body>
+</html>
